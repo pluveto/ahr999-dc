@@ -1,0 +1,36 @@
+# AHR999 Indicator Collector
+
+A program to fetch and store AHR999 indicators from the Coinank API into InfluxDB.
+
+## Environment Variables
+
+- `INFLUXDB_URL`: Optional, defaults to "http://localhost:8086"
+- `INFLUXDB_TOKEN`: Required, used for authentication with InfluxDB
+- `INFLUXDB_ORG`: Optional, defaults to "MyOrg"
+- `INFLUXDB_BUCKET`: Optional, defaults to "MyBucket"
+- `INTERVAL`: Optional, defaults to 8 (hours), setting to 0 means run once and exit
+
+## Data Collection
+
+The program fetches the following data points from the Coinank API:
+
+- `ahr999`: The AHR999 indicator value
+- `avg`: The average value
+- `value`: The value field
+
+## Schema
+
+The data is stored in InfluxDB using the following schema:
+
+- Measurement: `ahr999`
+- Tags:
+  - None
+- Fields:
+  - `ahr999` (float, the AHR999 indicator value)
+  - `avg` (float, the 200 day investment cost average value)
+  - `value` (float, the value field)
+- Timestamp: Uses the `date` field from the API response, converted from milliseconds to a proper timestamp.
+
+## Acknowledgements
+
+- API: <https://coinank.com/indicatorapi/getAhr999Table>
